@@ -135,7 +135,7 @@ function clickLikeButton(id){
         let likeNumber = parseInt(document.getElementById(`like-counter-${id}`).textContent) - 1;
         document.getElementById(`like-counter-${id}`).innerText = likeNumber;
         console.log(document.getElementById(`like-counter-${id}`).textContent);
-
+        updateLikeNumber(id, false);
         console.log(likedPostsid);
     } else {
         likedPostsid.push(id);
@@ -145,6 +145,7 @@ function clickLikeButton(id){
         let likeNumber = parseInt(document.getElementById(`like-counter-${id}`).textContent) + 1;
         document.getElementById(`like-counter-${id}`).innerText = likeNumber;
         console.log(document.getElementById(`like-counter-${id}`).textContent);
+        updateLikeNumber(id, true);
         
         console.log(likedPostsid);
     }
@@ -158,4 +159,22 @@ function removeElementByString(array , string){
         }
     }
     return arrayOutput;
+}
+
+function updateLikeNumber(id, like){
+    found= false
+    i=0;
+    while(found === false){
+        if(posts[i].id === id){
+            if(like){
+                posts[i].likes = posts[i].likes + 1;
+                console.log("numero data:" + posts[i].likes);
+            } else {
+                posts[i].likes = posts[i].likes - 1;
+                console.log("numero data:" + posts[i].likes);
+            }
+            found=true;
+        }
+        i++;
+    }
 }
