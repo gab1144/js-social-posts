@@ -56,6 +56,8 @@ const posts = [
     }
 ];
 
+let likedPostsid = []
+
 const container = document.getElementById("container");
 
 generatePosts();
@@ -89,8 +91,8 @@ function generatePostsTag({id, content, media, author, likes, created}){
         </div>
         <div class="post__footer">
             <div class="likes js-likes">
-                <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="${id}">
+                <div class="likes__cta" onclick="clickLikeButton(${id})">
+                    <a class="like-button  js-like-button" href="#" data-postid="${id}" id="button-id-${id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
@@ -122,4 +124,26 @@ function generateProphilePhoto(author){
         `;
     }
     return profilephoto;
+}
+
+function clickLikeButton(id){
+    if(document.getElementById(`button-id-${id}`).classList.contains("like-button--liked")){
+        document.getElementById(`button-id-${id}`).classList.remove("like-button--liked");
+        likedPostsid = removeElementByString(likedPostsid , id);
+        console.log(likedPostsid);
+    } else {
+        likedPostsid.push(id);
+        console.log(likedPostsid);
+        document.getElementById(`button-id-${id}`).classList.add("like-button--liked");
+    }
+}
+
+function removeElementByString(array , string){
+    const arrayOutput = [];
+    for(element of array){
+        if(element !== string) {
+            arrayOutput.push(element);
+        }
+    }
+    return arrayOutput;
 }
