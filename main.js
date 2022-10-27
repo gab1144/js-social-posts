@@ -98,7 +98,7 @@ function generatePostsTag({id, content, media, author, likes, created}){
                     </a>
                 </div>
                 <div class="likes__counter">
-                    Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
+                    Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
                 </div>
             </div> 
         </div>            
@@ -130,11 +130,23 @@ function clickLikeButton(id){
     if(document.getElementById(`button-id-${id}`).classList.contains("like-button--liked")){
         document.getElementById(`button-id-${id}`).classList.remove("like-button--liked");
         likedPostsid = removeElementByString(likedPostsid , id);
+
+        console.log(document.getElementById(`like-counter-${id}`).textContent);
+        let likeNumber = parseInt(document.getElementById(`like-counter-${id}`).textContent) - 1;
+        document.getElementById(`like-counter-${id}`).innerText = likeNumber;
+        console.log(document.getElementById(`like-counter-${id}`).textContent);
+
         console.log(likedPostsid);
     } else {
         likedPostsid.push(id);
-        console.log(likedPostsid);
         document.getElementById(`button-id-${id}`).classList.add("like-button--liked");
+        
+        console.log(document.getElementById(`like-counter-${id}`).textContent);
+        let likeNumber = parseInt(document.getElementById(`like-counter-${id}`).textContent) + 1;
+        document.getElementById(`like-counter-${id}`).innerText = likeNumber;
+        console.log(document.getElementById(`like-counter-${id}`).textContent);
+        
+        console.log(likedPostsid);
     }
 }
 
