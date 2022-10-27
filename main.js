@@ -68,13 +68,24 @@ function generatePosts(){
 
 function generatePostsTag({id, content, media, author, likes, created}){
     const formattedData = created.split("-");
+    const splittedName =author.name.split(" ");
+    let profilephoto;
+    if(author.image !== null){
+        profilephoto=`<img class="profile-pic" src="${author.image}" alt="${author.name}">`;
+    }else {
+        profilephoto = `
+            <div class="profile-pic-default">
+                <span>${splittedName[0][0] + splittedName[1][0]}</span>
+            </div>
+        `;
+    }
     
     return `
     <div class="post">
         <div class="post__header">
             <div class="post-meta">                    
                 <div class="post-meta__icon">
-                    <img class="profile-pic" src="${author.image}" alt="Phil Mangione">                    
+                    ${profilephoto}                    
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${author.name}</div>
