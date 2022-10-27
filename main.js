@@ -92,7 +92,7 @@ function generatePostsTag({id, content, media, author, likes, created}){
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta" onclick="clickLikeButton(${id})">
-                    <a class="like-button  js-like-button" href="#" data-postid="${id}" id="button-id-${id}">
+                    <a class="like-button  js-like-button" href="#" data-postid="${id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
@@ -127,8 +127,9 @@ function generateProphilePhoto(author){
 }
 
 function clickLikeButton(id){
-    if(document.getElementById(`button-id-${id}`).classList.contains("like-button--liked")){
-        document.getElementById(`button-id-${id}`).classList.remove("like-button--liked");
+    const button = document.querySelector(`[data-postid="${id}"]`);
+    if(button.classList.contains("like-button--liked")){
+        button.classList.remove("like-button--liked");
         likedPostsid = removeElementByString(likedPostsid , id);
 
         console.log(document.getElementById(`like-counter-${id}`).textContent);
@@ -139,7 +140,7 @@ function clickLikeButton(id){
         console.log(likedPostsid);
     } else {
         likedPostsid.push(id);
-        document.getElementById(`button-id-${id}`).classList.add("like-button--liked");
+        button.classList.add("like-button--liked");
         
         console.log(document.getElementById(`like-counter-${id}`).textContent);
         let likeNumber = parseInt(document.getElementById(`like-counter-${id}`).textContent) + 1;
@@ -168,10 +169,8 @@ function updateLikeNumber(id, like){
         if(posts[i].id === id){
             if(like){
                 posts[i].likes = posts[i].likes + 1;
-                console.log("numero data:" + posts[i].likes);
             } else {
                 posts[i].likes = posts[i].likes - 1;
-                console.log("numero data:" + posts[i].likes);
             }
             found=true;
         }
